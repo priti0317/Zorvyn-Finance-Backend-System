@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password      String
+  role          Role     @default(VIEWER)
+  status        Status   @default(ACTIVE)
+  createdAt     DateTime @default(now())
+  monthlyIncome Float    @default(0)
+  yearlyIncome  Float    @default(0)
+  records       Record[]
+}
+
+model Record {
+  id        String     @id @default(uuid())
+  amount    Float
+  type      RecordType
+  category  String?
+  date      DateTime   @default(now())
+  notes     String?
+  userId    String
+  createdAt DateTime   @default(now())
+  user      User       @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  VIEWER
+  ANALYST
+  ADMIN
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+}
+
+enum RecordType {
+ income
+ expense
+}
