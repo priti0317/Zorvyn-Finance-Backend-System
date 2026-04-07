@@ -224,7 +224,8 @@ npm install
 Create `.env` file:
 
 
-DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+DATABASE_URL=your_neon_or_local_db_url
+JWT_SECRET=your_secret
 
 
 ---
