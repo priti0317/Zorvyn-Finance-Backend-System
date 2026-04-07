@@ -225,6 +225,7 @@ Create `.env` file:
 
 
 DATABASE_URL=your_neon_or_local_db_url
+
 JWT_SECRET=your_secret
 
 
